@@ -7,8 +7,8 @@ app.debug = False
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/ta')
-def hello_ta():
+@app.route('/greet_ta')
+def greet_ta():
     return 'Hello, TA!'
 
 if __name__ == '__main__':
