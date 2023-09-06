@@ -1,11 +1,20 @@
 from flask import Flask
+import os
 
 app = Flask(__name__)
+app.debug = bool(os.getenv('FLASK_DEBUG', False))
+import os
+
+app = Flask(__name__)
+app.debug = bool(os.getenv('FLASK_DEBUG', False))
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!!'
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+@app.route('/greet_ta')
+def greet_ta():
+    return 'Hello, TA!!!'
 
+if __name__ == '__main__':
+    app.run(host=os.getenv('FLASK_HOST', '127.0.0.1'), port=int(os.getenv('FLASK_PORT', 8080)))
