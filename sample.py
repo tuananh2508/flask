@@ -1,6 +1,8 @@
 from flask import Flask
+import os
 
 app = Flask(__name__)
+app.debug = bool(os.getenv('FLASK_DEBUG', False))
 import os
 
 app = Flask(__name__)
