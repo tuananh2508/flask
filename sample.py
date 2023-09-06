@@ -6,7 +6,7 @@ app.debug = bool(os.getenv('FLASK_DEBUG', False))
 import os
 
 app = Flask(__name__)
-app.debug = os.getenv('FLASK_DEBUG', False)
+app.debug = bool(os.getenv('FLASK_DEBUG', False))
 
 @app.route('/')
 def hello_world():
