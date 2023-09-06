@@ -1,0 +1,36 @@
+name: Korbit AI Mentor check
+
+on: [pull_request, workflow_dispatch]
+env:
+  KORBIT_SECRET_ID: ${{ secrets.KORBIT_SECRET_ID }}
+  KORBIT_SECRET_KEY: ${{ secrets.KORBIT_SECRET_KEY }}
+jobs:
+  install-publish:
+    defaults:
+      run:
+        # this is necessary to have conda envs activated properly
+        shell: bash -el {0}
+    name: Check file on demand github action
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: "3.10"
+          activate-environment: korbit-mentor
+          auto-activate-base: false
+
+      - name: Install dependencies
+        shell: bash -el {0}
+        run: |
+          conda init bash
+          conda activate korbit-mentor
+          pip install korbit-mentor
+      - name: Run scan
+        shell: bash -l {0}
+        run: |
+          conda init bash
+          conda activate korbit-mentor
+          korbit scan --threshold-priority=9 --headless --headless-show-report .
+
